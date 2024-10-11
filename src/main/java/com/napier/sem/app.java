@@ -7,6 +7,12 @@ import org.bson.Document;
 
 public class app
 {
+    /**
+     *The main method is the entry point of the application.
+     * it makes a new document
+     * @param args Command-line arguments passed to the program.
+     * If no arguments are provided, the array will be empty.
+     */
     public static void main(String[] args)
     {
 // Connect to MongoDB
