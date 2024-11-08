@@ -6,7 +6,7 @@ public class app
 {
     /**
      *The main method is the entry point of the application.
-     * it makes a new document
+     * it connects to the database
      * @param args Command-line arguments passed to the program.
      * If no arguments are provided, the array will be empty.
      */
