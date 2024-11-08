@@ -1,0 +1,204 @@
+USE CASE 1: Produce a Report on the Salary of All Employees
+Goal in Context
+As an HR advisor, I want to produce a report on the salary of all employees so that I can support financial reporting of the organisation.
+Scope
+Company-wide financial reporting.
+Level
+Primary task.
+Preconditions
+All employee salary data is available in the database.
+Success End Condition
+A report containing the salary information for all employees is available for finance.
+Failed End Condition
+No report is produced.
+Primary Actor
+HR Advisor.
+Trigger
+A request for financial salary information is received from the finance department.
+Main Success Scenario
+1.	Finance requests salary information for all employees.
+2.	HR advisor extracts salary data for all employees.
+3.	HR advisor generates the report.
+4.	HR advisor provides the report to finance.
+Extensions
+None.
+Sub-variations
+None.
+Schedule
+Release 1.0.
+________________________________________
+USE CASE 2: Produce a Report on the Salary of Employees in a Department
+Goal in Context
+As an HR advisor, I want to produce a report on the salary of employees in a department so that I can support financial reporting of the organisation.
+Scope
+Department-level financial reporting.
+Level
+Primary task.
+Preconditions
+The department is identified, and salary data for employees in that department is available.
+Success End Condition
+A report containing the salary information for employees in the specified department is available for finance.
+Failed End Condition
+No report is produced.
+Primary Actor
+HR Advisor.
+Trigger
+A request for salary information for a specific department is received from finance.
+Main Success Scenario
+1.	Finance requests salary information for a specific department.
+2.	HR advisor captures the department name.
+3.	HR advisor extracts the salary data for all employees in the department.
+4.	HR advisor generates the report.
+5.	HR advisor provides the report to finance.
+Extensions
+None.
+Sub-variations
+None.
+Schedule
+Release 1.0.
+________________________________________
+USE CASE 3: Produce a Report on the Salary of Employees in My Department (Department Manager)
+Goal in Context
+As a department manager, I want to produce a report on the salary of employees in my department so that I can support financial reporting for my department.
+Scope
+Department-level financial reporting for departmental management.
+Level
+Primary task.
+Preconditions
+The department manager has access to salary data for their department.
+Success End Condition
+A report containing the salary information for employees in the department is available.
+Failed End Condition
+No report is produced.
+Primary Actor
+Department Manager.
+Trigger
+A request for department salary information is made by the department manager.
+Main Success Scenario
+1.	Department manager requests salary information for employees in their department.
+2.	HR advisor provides the department's employee salary data.
+3.	Department manager generates the report.
+4.	Department manager shares the report with the HR advisor or finance, as needed.
+Extensions
+None.
+Sub-variations
+None.
+Schedule
+ Release 1.0.
+________________________________________
+________________________________________
+USE CASE 5: Add a New Employee’s Details
+Goal in Context
+As an HR advisor, I want to add a new employee's details so that I can ensure the new employee is paid.
+Scope
+Employee onboarding in the HR system.
+Level
+Primary task.
+Preconditions
+New employee details (e.g., name, role, salary, department) are available.
+Success End Condition
+The employee details are successfully added to the system, ensuring they are processed for payroll.
+Failed End Condition
+Employee details are not added, and payroll cannot process the employee.
+Primary Actor
+HR Advisor.
+Trigger
+A new employee is hired, and their details need to be entered into the HR system.
+Main Success Scenario
+1.	HR advisor receives the new employee’s details.
+2.	HR advisor enters the employee details into the system.
+3.	Employee is registered in the HR system.
+4.	Employee is ready.
+Extensions
+None.
+Sub-variations
+None.
+Schedule
+Release 1.0.
+________________________________________
+USE CASE 6: View Employee’s Details
+Goal in Context
+As an HR advisor, I want to view an employee's details 
+Scope
+Employee management in the HR system.
+Level
+Primary task.
+Preconditions
+Employee details are already stored in the system.
+Success End Condition
+The HR advisor successfully retrieves the employee's details for review.
+Failed End Condition
+The employee details cannot be found.
+Primary Actor
+HR Advisor.
+Trigger
+A request for the employee's details is made 
+Main Success Scenario
+1.	HR advisor receives the request.
+2.	HR advisor searches for the employee in the system.
+3.	HR advisor reviews the employee's current details.
+Extensions	
+None.
+Sub-variations
+None.
+Schedule
+Release 1.0.
+________________________________________
+USE CASE 7: Update Employee’s Details
+Goal in Context
+As an HR advisor, I want to update an employee's details so that employee's details are kept up-to-date.
+Scope
+Employee data management.
+Level
+Primary task.
+Preconditions
+Employee details need to be updated 
+Success End Condition
+Employee details are updated successfully.
+Failed End Condition
+Employee details cannot be updated.
+Primary Actor
+HR Advisor.
+Trigger
+An update request is received for an employee’s 
+Main Success Scenario
+1.	HR advisor receives the request to update an employee's details.
+2.	HR advisor retrieves the employee's current details from the system.
+3.	HR advisor updates the necessary details in the system.
+4.	Employee’s updated details are saved in the system.
+Extensions
+None.
+Sub-variations
+None.
+Schedule
+Release 1.0.
+________________________________________
+USE CASE 8: Delete Employee’s Details
+Goal in Context
+As an HR advisor, I want to delete an employee's details so that the company is compliant with data egislation.
+Scope
+Employee data deletion in compliance with legal requirements.
+Level
+Primary task.
+Preconditions
+The employee’s data is no longer required by the comany
+Success End Condition
+Employee data is successfully deleted from the system.
+Failed End Condition
+Employee data cannot be deleted.
+Primary Actor
+HR Advisor.
+Trigger
+A request or requirement for deleting an employee's details is triggered 
+Main Success Scenario
+1.	HR advisor identifies that the employee's data must be deleted.
+2.	HR advisor retrieves the employee’s data from the system.
+3.	HR advisor deletes the employee’s details from the system.
+4.	Data deletion is confirmed, and the system is updated accordingly.
+Extensions
+None.
+Sub-variations
+None.
+Schedule:
+ Release 1.0.
+
