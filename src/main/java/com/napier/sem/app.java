@@ -85,7 +85,8 @@ public class app
                 "SELECT city.Name AS CityName, city.District, city.Population"
                 +"FROM city"
                 +"JOIN country ON city.CountryCode = country.Code"
-                +"WHERE country.Name = ?";
+                +"WHERE country.Name = ?"
+                +"ORDER BY city.Population DESC";
 
 
         try {
