@@ -1,7 +1,9 @@
 package com.napier.sem;
 
+import java.awt.desktop.SystemSleepListener;
 import java.sql.*;
 import java.util.List;
+import java.util.Scanner;
 
 public class app
 {
@@ -88,19 +90,41 @@ public class app
         // Create an instance of city to access its methods
         city cityObj = new city();
 
-        // Fetch all cities in the country with code "USA"
+        // Fetch all cities in the country code
         List<city> cities = cityObj.getCitiesByCountry(a.con, "AFG");
 
         // Display the cities
         for (city c : cities) {
             System.out.println(c.name + " - Population: " + c.population);
         }
-        // Fetch all cities in the district "California"
+        // Fetch all cities in the district
         List<city> citiesByDistrict = cityObj.getCitiesByDistrict(a.con, "Kabol");
 
-        // Display the cities in the district of California ordered by population
-        System.out.println("\nCities in California ordered by population:");
+        // Display the cities in the district ordered by population
+        System.out.println("\nCities ordered by population:");
         for (city c : citiesByDistrict) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
+
+        // Fetch the top N populated cities in the world
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEnter the number of top city's you want to see:");
+        int N; // Example: Get the top N
+        while (true) {
+            try {
+                N = Integer.parseInt(scanner.nextLine());
+                if (N > 0) break; // Ensure the number is positive
+                else System.out.println("Please enter a positive number:");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number:");
+            }
+        }
+
+        List<city> topCities = cityObj.getTopPopulatedCities(a.con, N);
+
+        // Display the top N populated cities
+        System.out.println("Top " + N + " populated cities in the world:");
+        for (city c : topCities) {
             System.out.println(c.name + " - Population: " + c.population);
         }
 
