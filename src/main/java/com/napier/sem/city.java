@@ -33,4 +33,28 @@ public class city {
         }
         return cities;
     }
+
+    // New method to retrieve all cities in a district ordered by population
+    public List<city> getCitiesByDistrict(Connection con, String district) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT * FROM city WHERE district = ? ORDER BY population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, district);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+        return cities;
+    }
 }

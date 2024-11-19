@@ -95,6 +95,14 @@ public class app
         for (city c : cities) {
             System.out.println(c.name + " - Population: " + c.population);
         }
+        // Fetch all cities in the district "California"
+        List<city> citiesByDistrict = cityObj.getCitiesByDistrict(a.con, "Kabol");
+
+        // Display the cities in the district of California ordered by population
+        System.out.println("\nCities in California ordered by population:");
+        for (city c : citiesByDistrict) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
 
         // Disconnect from database
         a.disconnect();
