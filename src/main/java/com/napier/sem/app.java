@@ -40,7 +40,7 @@ public class app
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:33060/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -75,47 +75,6 @@ public class app
         }
     }
 
-    /**
-     * Search and display all cities in a given country using an existing database connection.
-     * @param countryName The name of the country to search for cities.
-     */
-    public void searchCitiesByCountry(String countryName) {
-        // SQL query to get all cities in a specified country
-        String query =
-                "SELECT city.Name AS CityName, city.District, city.Population"
-                +"FROM city"
-                +"JOIN country ON city.CountryCode = country.Code"
-                +"WHERE country.Name = ?"
-                +"ORDER BY city.Population DESC";
-
-
-        try {
-            // Prepare the statement using the provided connection
-            PreparedStatement statement = con.prepareStatement(query);
-            statement.setString(1, countryName); // Set the country name dynamically
-
-            // Execute the query
-            ResultSet resultSet = statement.executeQuery();
-
-            // Display the results
-            System.out.printf("Cities in %s:%n", countryName);
-            while (resultSet.next()) {
-                String cityName = resultSet.getString("CityName");
-                String district = resultSet.getString("District");
-                int population = resultSet.getInt("Population");
-
-                // Output city details
-                System.out.printf("City: %s, District: %s, Population: %d%n", cityName, district, population);
-            }
-
-            // Closing resources
-            resultSet.close();
-            statement.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args)
     {
@@ -124,9 +83,6 @@ public class app
 
         // Connect to database
         a.connect();
-
-        // Perform the search for cities in a given country (example: "India")
-        a.searchCitiesByCountry("India");
 
         // Disconnect from database
         a.disconnect();
