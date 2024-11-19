@@ -1,20 +1,24 @@
 package com.napier.sem;
 
+import java.sql.*;
+
+
 public class country {
     // Fields corresponding to table columns
-    private String code; // Primary key
-    private String name;
-    private String continent; // Stored as ENUM in the database
-    private String region;
-    private double surfaceArea; // Decimal(10,2)
-    private Integer indepYear; // Can be NULL
-    private int population;
-    private Double lifeExpectancy; // Decimal(3,1), Can be NULL
-    private Double gnp; // Decimal(10,2), Can be NULL
-    private Double gnpOld; // Decimal(10,2), Can be NULL
-    private String localName;
-    private String governmentForm;
-    private String headOfState; // Can be NULL
-    private Integer capital; // Can be NULL
-    private String code2;
+    public String code; // Primary key
+    public String name;
+    public String continent; // Stored as ENUM in the database
+    public String region;
+    public double surfaceArea; // Decimal(10,2)
+    public Integer indepYear; // Can be NULL
+    public int population;
+    public Double lifeExpectancy; // Decimal(3,1), Can be NULL
+    public Double gnp; // Decimal(10,2), Can be NULL
+    public Double gnpOld; // Decimal(10,2), Can be NULL
+    public String localName;
+    public String governmentForm;
+    public String headOfState; // Can be NULL
+    public Integer capital; // Can be NULL
+    public String code2;
 }
+

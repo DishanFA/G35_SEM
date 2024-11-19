@@ -1,6 +1,7 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.List;
 
 public class app
 {
@@ -38,7 +39,7 @@ public class app
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(300);
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://localhost:33060/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
@@ -83,6 +84,17 @@ public class app
 
         // Connect to database
         a.connect();
+
+        // Create an instance of city to access its methods
+        city cityObj = new city();
+
+        // Fetch all cities in the country with code "USA"
+        List<city> cities = cityObj.getCitiesByCountry(a.con, "AFG");
+
+        // Display the cities
+        for (city c : cities) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
 
         // Disconnect from database
         a.disconnect();
