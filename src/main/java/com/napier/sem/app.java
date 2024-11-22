@@ -1,6 +1,5 @@
 package com.napier.sem;
 
-import java.awt.desktop.SystemSleepListener;
 import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
