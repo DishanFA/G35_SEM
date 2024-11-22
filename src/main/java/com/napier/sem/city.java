@@ -81,4 +81,28 @@ public class city {
         }
         return cities;
     }
+
+    public List<city> issue8(Connection con) {
+        List<city> cities = new ArrayList<>();
+
+        String query = "SELECT ID, Name, CountryCode, District, Population FROM city ORDER BY Population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+        return cities;
+    }
 }

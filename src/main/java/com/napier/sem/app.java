@@ -43,7 +43,7 @@ public class app
                 // Wait a bit for db to start
                 Thread.sleep(300);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://localhost:33060/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -106,6 +106,13 @@ public class app
             System.out.println(c.name + " - Population: " + c.population);
         }
 
+        List<city> citiesByWorld = cityObj.issue8(a.con);
+
+        System.out.println("cities in the world ordered by population (largest to smallest)");
+        for (city c : citiesByWorld) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
+
         // Fetch the top N populated cities in the world
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the number of top city's you want to see:");
@@ -128,17 +135,35 @@ public class app
             System.out.println(c.name + " - Population: " + c.population);
         }
 
+
         // Create an instance of country to access its methods
         country countryObj = new country();
 
-        //fetching all countries in world
         List<country> countries = countryObj.issue2(a.con);
 
-        System.out.println("All the countries in the world by population largest to smallest");
+
+        System.out.println("Countries in the world ordered by population (largest to smallest):");
         for (country co : countries) {
             System.out.println(co.name + " - Population: " + co.population);
         }
 
+        //fetching all countries in the continent
+        List<country> countriesByContinent = countryObj.issue3(a.con, "Asia");
+
+        //display all countries in the world
+        System.out.println("All the countries in the district by population largest to smallest");
+        for (country co : countriesByContinent) {
+            System.out.println(co.name + " - Population: " + co.population);
+        }
+
+        //fetching all countries in the continent
+        List<country> countriesByRegion = countryObj.issue4(a.con, "Caribbean");
+
+        //display all countries in the world
+        System.out.println("All the countries in the region by population largest to smallest");
+        for (country co : countriesByRegion) {
+            System.out.println(co.name + " - Population: " + co.population + " - Region: " + co.region);
+        }
         // Disconnect from database
         a.disconnect();
     }
