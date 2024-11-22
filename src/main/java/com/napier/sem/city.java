@@ -81,4 +81,28 @@ public class city {
         }
         return cities;
     }
+    public List<city> getTopCitiesByPopulation(Connection con, String countryCode, int n) {
+        List<city> cities = new ArrayList<>();
+        // Dynamically construct the query for the LIMIT parameter
+        String query = "SELECT * FROM city WHERE CountryCode = ? ORDER BY Population DESC LIMIT " + n;
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, countryCode); // Set the country code parameter
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
 }
