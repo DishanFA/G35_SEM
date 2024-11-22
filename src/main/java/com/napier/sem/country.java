@@ -27,7 +27,7 @@ public class country {
     //Method to organise countries in the world by population
     public List<country> issue2(Connection con) {
         List<country> countries = new ArrayList<>();
-        String query = "SELECT Name, Population" + "FROM country ORDER BY Population DESC";
+        String query = "SELECT name, population" + "FROM country ORDER BY population DESC";
 
         try (PreparedStatement stmt = con.prepareStatement(query)) {
             ;
