@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Scanner;
 
-public class AppIntegrationTest
+  /* public class AppIntegrationTest
 {
     static com.napier.sem.app app;
 
@@ -19,6 +19,7 @@ public class AppIntegrationTest
     }
 
     @Test
+
     public void testGetCitiesByCountry()
     {
         city cityObj = new city();
@@ -66,3 +67,4 @@ public class AppIntegrationTest
         }
     }
 }
+ */

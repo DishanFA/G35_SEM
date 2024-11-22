@@ -43,7 +43,7 @@ public class app
                 // Wait a bit for db to start
                 Thread.sleep(300);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:33060/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -90,6 +90,10 @@ public class app
         // Create an instance of city to access its methods
         city cityObj = new city();
 
+        // Create an instance of country to access its methods
+        country countryObj = new country();
+
+
         // Fetch all cities in the country code
         List<city> cities = cityObj.getCitiesByCountry(a.con, "AFG");
 
@@ -112,6 +116,14 @@ public class app
         for (city c : citiesByWorld) {
             System.out.println(c.name + " - Population: " + c.population);
         }
+
+        List<city> citiesByContinent = cityObj.issue9(a.con,"Europe");
+
+        System.out.println("cities in the continent ordered by population (largest to smallest)");
+        for (city c : citiesByContinent) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
+        
 
         // Fetch the top N populated cities in the world
         Scanner scanner = new Scanner(System.in);
@@ -136,34 +148,61 @@ public class app
         }
 
 
-        // Create an instance of country to access its methods
-        country countryObj = new country();
 
         List<country> countries = countryObj.issue2(a.con);
 
-
+        //display all countries in the world
         System.out.println("Countries in the world ordered by population (largest to smallest):");
         for (country co : countries) {
             System.out.println(co.name + " - Population: " + co.population);
         }
 
         //fetching all countries in the continent
-        List<country> countriesByContinent = countryObj.issue3(a.con, "Asia");
+        List<country> countriesByContinent = countryObj.issue3(a.con,"Asia" );
 
-        //display all countries in the world
+        //display all countries in the continent
         System.out.println("All the countries in the district by population largest to smallest");
         for (country co : countriesByContinent) {
-            System.out.println(co.name + " - Population: " + co.population);
+            System.out.println(co.name + " - Population: " + co.population + " - Continent: " + co.continent);
         }
 
-        //fetching all countries in the continent
+        //fetching all countries in the region
         List<country> countriesByRegion = countryObj.issue4(a.con, "Caribbean");
 
-        //display all countries in the world
+        //display all countries in the region
         System.out.println("All the countries in the region by population largest to smallest");
         for (country co : countriesByRegion) {
             System.out.println(co.name + " - Population: " + co.population + " - Region: " + co.region);
         }
+
+        //fetching total population of the world
+        List<country> worldPopulation = countryObj.issue27(a.con);
+
+        //display total population of the world
+        System.out.println("The population of the world");
+        for (country co : worldPopulation) {
+            System.out.println("World Population: " + co.worldPopulation);
+        }
+
+
+        //fetching total population of a continent
+        List<country> continentPopulation = countryObj.issue28(a.con, "Europe");
+
+        //display total population of a continent
+        System.out.println("The population of a continent");
+        for (country co : continentPopulation) {
+            System.out.println("Continent: " + co.continent + " - Population: " + co.population);
+        }
+
+        //fetching total population of a region
+        List<country> regionPopulation = countryObj.issue29(a.con, "Caribbean");
+
+        //display total population of a region
+        System.out.println("The population of a region");
+        for (country co : regionPopulation) {
+            System.out.println("Region: " + co.region + " - Population: " + co.population);
+        }
+
         // Disconnect from database
         a.disconnect();
     }
