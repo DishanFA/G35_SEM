@@ -1,6 +1,9 @@
 package com.napier.sem;
 
+import javax.naming.Name;
 import java.sql.*;
+import java.util.List;
+import java.util.Scanner;
 
 public class app
 {
@@ -13,7 +16,7 @@ public class app
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
+    public Connection con = null;
 
     /**
      * Connect to the MySQL database.
@@ -38,9 +41,9 @@ public class app
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(300);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:33060/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -74,6 +77,8 @@ public class app
             }
         }
     }
+
+
     public static void main(String[] args)
     {
         // Create new Application
@@ -81,6 +86,58 @@ public class app
 
         // Connect to database
         a.connect();
+
+        // Create an instance of city to access its methods
+        city cityObj = new city();
+
+        // Fetch all cities in the country code
+        List<city> cities = cityObj.getCitiesByCountry(a.con, "AFG");
+
+        // Display the cities
+        for (city c : cities) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
+        // Fetch all cities in the district
+        List<city> citiesByDistrict = cityObj.getCitiesByDistrict(a.con, "Kabol");
+
+        // Display the cities in the district ordered by population
+        System.out.println("\nCities ordered by population:");
+        for (city c : citiesByDistrict) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
+
+        // Fetch the top N populated cities in the world
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEnter the number of top city's you want to see:");
+        int N; // Example: Get the top N
+        while (true) {
+            try {
+                N = Integer.parseInt(scanner.nextLine());
+                if (N > 0) break; // Ensure the number is positive
+                else System.out.println("Please enter a positive number:");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number:");
+            }
+        }
+
+        List<city> topCities = cityObj.getTopPopulatedCities(a.con, N);
+
+        // Display the top N populated cities
+        System.out.println("Top " + N + " populated cities in the world:");
+        for (city c : topCities) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
+
+        // Create an instance of country to access its methods
+        country countryObj = new country();
+
+        //fetching all countries in world
+        List<country> countries = countryObj.issue2(a.con);
+
+        System.out.println("All the countries in the world by population largest to smallest");
+        for (country co : countries) {
+            System.out.println(co.name + " - Population: " + co.population);
+        }
 
         // Disconnect from database
         a.disconnect();
