@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import javax.naming.Name;
 import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
@@ -42,7 +43,7 @@ public class app
                 // Wait a bit for db to start
                 Thread.sleep(300);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:33060/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -125,6 +126,17 @@ public class app
         System.out.println("Top " + N + " populated cities in the world:");
         for (city c : topCities) {
             System.out.println(c.name + " - Population: " + c.population);
+        }
+
+        // Create an instance of country to access its methods
+        country countryObj = new country();
+
+        //fetching all countries in world
+        List<country> countries = countryObj.issue2(a.con);
+
+        System.out.println("All the countries in the world by population largest to smallest");
+        for (country co : countries) {
+            System.out.println(co.name + " - Population: " + co.population);
         }
 
         // Disconnect from database
