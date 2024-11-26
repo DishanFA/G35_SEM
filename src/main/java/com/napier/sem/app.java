@@ -123,7 +123,7 @@ public class app
         for (city c : citiesByContinent) {
             System.out.println(c.name + " - Population: " + c.population);
         }
-        
+
 
         // Fetch the top N populated cities in the world
         Scanner scanner = new Scanner(System.in);
@@ -202,6 +202,18 @@ public class app
         for (country co : regionPopulation) {
             System.out.println("Region: " + co.region + " - Population: " + co.population);
         }
+
+
+        //display capital cities by continent, ordered by pop largest - smallest
+        String continent = "Europe";
+        List<city> capitalCities = cityObj.getCapitalCitiesByContinent(a.con, continent);
+
+        System.out.println("\nCapital Cities in " + continent + " ordered by population (largest to smallest):\n");
+        for (city c : capitalCities) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
+
+
 
         // Disconnect from database
         a.disconnect();

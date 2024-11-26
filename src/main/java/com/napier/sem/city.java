@@ -129,4 +129,33 @@ public class city {
         }
         return cities;
     }
+
+    // method to retrieve capital cities by continent organised by population largest to smallest
+    public List<city> getCapitalCitiesByContinent(Connection con, String continent) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = ? AND country.Capital IS NOT NULL " +
+                "ORDER BY city.Population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, continent);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);  // Add the city to the list
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
 }
