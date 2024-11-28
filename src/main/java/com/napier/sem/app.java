@@ -94,6 +94,8 @@ public class app
         country countryObj = new country();
 
 
+
+
         // Fetch all cities in the country code
         List<city> cities = cityObj.getCitiesByCountry(a.con, "AFG");
 
@@ -215,7 +217,31 @@ public class app
 
 
 
+
+        //display the top populated capital cites amount chosen by user
+        System.out.println("\nEnter the number of top populated capital cities you want to see:");
+        while (true) {
+            try {
+                N = Integer.parseInt(scanner.nextLine());
+                if (N > 0) break;
+                else System.out.println("Please enter a positive number:");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number:");
+            }
+        }
+
+        List<city> topCapitalCities = cityObj.getTopPopulatedCapitalCities(a.con, N);
+
+        // Display the top N populated capital cities
+        System.out.println("\nTop " + N + " populated capital cities in the world:");
+        for (city c : topCapitalCities) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
+
         // Disconnect from database
         a.disconnect();
+
+
+
     }
 }
