@@ -267,7 +267,14 @@ public class app
 
 
 
+        System.out.println("\nEnter the district name to see its total population:");
+        String districtName = scanner.nextLine();  // Getting the district name from user
 
+        // fetch the population of the district
+        int population = cityObj.getPopulationByDistrict(a.con, districtName);
+
+        // Display the population of the district
+        System.out.println("Total population of district " + districtName + ": " + population);
 
 
         // Disconnect from database

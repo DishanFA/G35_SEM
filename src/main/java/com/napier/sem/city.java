@@ -180,7 +180,7 @@ public class city {
                 c.countryCode = rs.getString("CountryCode");
                 c.district = rs.getString("District");
                 c.population = rs.getInt("Population");
-                cities.add(c); // Add the city to the list
+                cities.add(c);
             }
         } catch (SQLException e) {
             System.out.println("Error executing query: " + e.getMessage());
@@ -201,8 +201,8 @@ public class city {
                 "LIMIT ?";
 
         try (PreparedStatement stmt = con.prepareStatement(query)) {
-            stmt.setString(1, continent);  // Set continent parameter
-            stmt.setInt(2, n);  // Set limit for top N cities
+            stmt.setString(1, continent);
+            stmt.setInt(2, n);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -219,5 +219,25 @@ public class city {
         }
 
         return cities;
+    }
+
+
+    public int getPopulationByDistrict(Connection con, String district) {
+        int totalPopulation = 0;
+        String query = "SELECT SUM(Population) AS total_population " +
+                "FROM city WHERE district = ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, district);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                totalPopulation = rs.getInt("total_population");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return totalPopulation;
     }
 }
