@@ -158,6 +158,25 @@ public class country {
         }
         return countries;
     }
+
+
+    public int getPopulationByCountry(Connection con, String countryCode) {
+        int population = 0;
+        String query = "SELECT Population FROM country WHERE Code = ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, countryCode);  // Set the country code parameter
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                population = rs.getInt("Population");  // Retrieve the population value
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return population;
+    }
 }
 
 

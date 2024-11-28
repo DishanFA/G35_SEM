@@ -277,6 +277,23 @@ public class app
         System.out.println("Total population of district " + districtName + ": " + population);
 
 
+
+
+
+        System.out.println("\nEnter the country code (e.g., 'USA', 'IND') to see its population:");
+        String countryCode = scanner.nextLine();  // Getting the country code from user
+
+        // fetch the population
+        population = countryObj.getPopulationByCountry(a.con, countryCode);
+
+        // Display the population of the country
+        if (population > 0) {
+            System.out.println("The population of country " + countryCode + " is: " + population);
+        } else {
+            System.out.println("Country with code " + countryCode + " not found.");
+        }
+
+
         // Disconnect from database
         a.disconnect();
     }
