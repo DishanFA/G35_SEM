@@ -230,6 +230,8 @@ public class app
             }
         }
 
+
+
         List<city> topCapitalCities = cityObj.getTopPopulatedCapitalCities(a.con, N);
 
         // Display the top N populated capital cities
@@ -238,10 +240,37 @@ public class app
             System.out.println(c.name + " - Population: " + c.population);
         }
 
+
+
+        //display the top populated capital cites amount chosen by user
+        System.out.println("\nEnter the number of top populated capital cities you want to see within the continent:");
+        while (true) {
+            try {
+                N = Integer.parseInt(scanner.nextLine());
+                if (N > 0) break;
+                else System.out.println("Please enter a positive number:");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number:");
+            }
+        }
+
+        //fetch the users input for continent
+        System.out.println("\nEnter the continent you want to see the top populated capital cities of:");
+        continent = scanner.nextLine();
+
+        // Fetch the top N populated capital cities by continent
+        topCapitalCities = cityObj.getTopPopulatedCapitalCitiesByContinent(a.con, continent, N);
+        System.out.println("\nThe top " + N + " populated capital cities in " + continent + ":");
+        for (city c : topCapitalCities) {
+            System.out.println(c.name + " - Population: " + c.population);
+        }
+
+
+
+
+
+
         // Disconnect from database
         a.disconnect();
-
-
-
     }
 }

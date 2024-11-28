@@ -188,4 +188,36 @@ public class city {
         return cities;
     }
 
+
+
+
+    public List<city> getTopPopulatedCapitalCitiesByContinent(Connection con, String continent, int n) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = ? AND country.Capital IS NOT NULL " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, continent);  // Set continent parameter
+            stmt.setInt(2, n);  // Set limit for top N cities
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);  // Add the city to the list
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
 }
