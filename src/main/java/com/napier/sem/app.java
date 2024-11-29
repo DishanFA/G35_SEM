@@ -93,7 +93,8 @@ public class app
         // Create an instance of country to access its methods
         country countryObj = new country();
 
-
+        //make N have a value of 1 to start
+        int N = 1;
 
 
         // Fetch all cities in the country code
@@ -130,7 +131,7 @@ public class app
         // Fetch the top N populated cities in the world
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the number of top city's you want to see:");
-        int N; // Example: Get the top N
+        // Example: Get the top N
         while (true) {
             try {
                 N = Integer.parseInt(scanner.nextLine());
