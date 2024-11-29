@@ -49,7 +49,7 @@ jobs:
           directory: ./target/site/jacoco
           flags: Integration Tests # optional
           verbose: true # optional (default = false)
-          slug: <DishanFA/G35_SEM
+          slug: <DishanFA/G35_SEM>
   build:
     name: Build and Start Using docker compose
     runs-on: ubuntu-20.04
