@@ -273,7 +273,40 @@ public class city {
     }
 
 
-    ///////// started here
+    // Method to retrieve all cities in a region ordered by population
+    public List<city> getCitiesByRegion(Connection con, String region) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT ci.ID, ci.Name, ci.CountryCode, ci.District, ci.Population " +
+                "FROM city ci " +
+                "JOIN country co ON ci.CountryCode = co.Code " +
+                "WHERE co.Region = ? " +
+                "ORDER BY ci.Population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, region);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+        return cities;
+    }
+
+
+
+
+///////// start here
+
+
 
 
 

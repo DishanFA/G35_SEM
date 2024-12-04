@@ -310,12 +310,12 @@ public class app
         if (populationStats.isEmpty()) {
             System.out.println("No data found for the specified region: " + regionName);
         } else {
-            System.out.println("Population statistics for region: " + regionName);
+            System.out.println("\nPopulation statistics for region: " + regionName);
             for (country co : populationStats) {
-                System.out.println("Region: " + co.region
+                System.out.println("\nRegion: " + co.region
                         + ", Total Population: " + co.population
                         + ", City Population: " + (long) co.surfaceArea
-                        + ", Non-City Population: " + co.gnp);
+                        + ", Non-City Population:\n " + co.gnp);
             }
         }
 
@@ -329,7 +329,6 @@ public class app
 
 
 
-        // change for what region
         String region = "Caribbean";
 
         System.out.println("Enter the number of top populated capital cities to fetch:");
@@ -350,12 +349,80 @@ public class app
         if (topCapitalCitiesByRegion.isEmpty()) {
             System.out.println("No data found for the specified region: " + region);
         } else {
-            System.out.println("Top " + N + " populated capital cities in region: " + region);
+            System.out.println("\nTop " + N + " populated capital cities in region: \n" + region);
             for (city c : topCapitalCitiesByRegion) {
                 System.out.println(c.name + " - Population: " + c.population);
             }
         }
 
+
+
+        region = "Southern and Central Asia";
+
+        List<city> citiesByRegion = cityObj.getCitiesByRegion(a.con, region);
+
+        // Top N populated countries in region where user choses N
+        if (citiesByRegion.isEmpty()) {
+            System.out.println("No data found for the specified region: " + region);
+        } else {
+            System.out.println("\nAll cities in the region: " + region + ", organized by population:\n");
+            for (city c : citiesByRegion) {
+                System.out.println(c.name + " - Population: " + c.population);
+            }
+        }
+
+
+
+
+
+        //
+    // Fetch the number of people who can speak Arabic
+    List<country> arabicSpeakingPopulation = countryObj.getArabicSpeakingPopulation(a.con);
+
+    // Display the results
+        if (arabicSpeakingPopulation.isEmpty()) {
+        System.out.println("No data found for Arabic-speaking population.");
+        } else {
+            System.out.println("\nArabic-speaking population organized by greatest number to smallest:\n");
+            for (country co : arabicSpeakingPopulation) {
+                 System.out.println("Language: " + co.localName +
+                    ", Total Speakers: " + co.population +
+                    ", Percentage of World Population: " + co.gnp + "%");
+        }
+    }
+
+
+
+
+
+// Specify the continent and prompt the user for the value of N
+
+        continent = "Asia";
+
+        System.out.println("Enter the number of top populated countries to fetch in " + continent);
+
+        while (true) {
+            try {
+                N = Integer.parseInt(scanner.nextLine());
+                if (N > 0) break;
+                else System.out.println("Please enter a positive number:");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number:");
+            }
+        }
+
+// Fetch the top N populated countries in the specified continent
+        List<country> topCountries = countryObj.getTopPopulatedCountriesByContinent(a.con, continent, N);
+
+// Display the results
+        if (topCountries.isEmpty()) {
+            System.out.println("No data found for the specified continent: " + continent);
+        } else {
+            System.out.println("Top " + N + " populated countries in continent: " + continent);
+            for (country co : topCountries) {
+                System.out.println("Country: " + co.name);
+            }
+        }
 
 
         // Disconnect from database
