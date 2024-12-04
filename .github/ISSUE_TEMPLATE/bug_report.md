@@ -1,10 +1,10 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: bug stuff
 title: Bug
-labels: ''
-assignees: DishanFA
+labels: bug
+assignees: DishanFA, SeanClark05, 40602751
 
 ---
 
-
+oh man its a bug
