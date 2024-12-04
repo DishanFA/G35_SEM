@@ -43,10 +43,13 @@ public class app
                 // Wait a bit for db to start
                 Thread.sleep(3000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:33060/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
+
+            // jdbc:mysql://db:3306/world?useSSL=false
+
             catch (SQLException sqle)
             {
                 System.out.println("Failed to connect to database attempt " + Integer.toString(i));
@@ -97,6 +100,7 @@ public class app
         int N = 1;
 
 
+
         // Fetch all cities in the country code
         List<city> cities = cityObj.getCitiesByCountry(a.con, "AFG");
 
@@ -104,6 +108,8 @@ public class app
         for (city c : cities) {
             System.out.println(c.name + " - Population: " + c.population);
         }
+
+
         // Fetch all cities in the district
         List<city> citiesByDistrict = cityObj.getCitiesByDistrict(a.con, "Kabol");
 
@@ -268,7 +274,143 @@ public class app
 
 
 
+        System.out.println("\nEnter the district name to see its total population:");
+        String districtName = scanner.nextLine();  // Getting the district name from user
 
+        // fetch the population of the district
+        int population = cityObj.getPopulationByDistrict(a.con, districtName);
+
+        // Display the population of the district
+        System.out.println("Total population of district " + districtName + ": " + population);
+
+
+
+
+
+        System.out.println("\nEnter the country code (e.g., 'USA', 'IND') to see its population:");
+        String countryCode = scanner.nextLine();  // Getting the country code from user
+
+        // fetch the population
+        population = countryObj.getPopulationByCountry(a.con, countryCode);
+
+        // Display the population of the country
+        if (population > 0) {
+            System.out.println("The population of country " + countryCode + " is: " + population);
+        } else {
+            System.out.println("Country with code " + countryCode + " not found.");
+        }
+
+
+
+        // select region to search here
+        String regionName = "Southern Europe";
+
+        // Fetch population statistics for the region
+        List<country> populationStats = countryObj.getPopulationStatsByRegion(a.con, regionName);
+
+        if (populationStats.isEmpty()) {
+            System.out.println("No data found for the specified region: " + regionName);
+        } else {
+            System.out.println("\nPopulation statistics for region: " + regionName);
+            for (country co : populationStats) {
+                System.out.println("\nRegion: " + co.region
+                        + ", Total Population: " + co.population
+                        + ", City Population: " + (long) co.surfaceArea
+                        + ", Non-City Population:\n " + co.gnp);
+            }
+        }
+
+
+        String region = "Caribbean";
+
+        System.out.println("Enter the number of top populated capital cities to fetch:");
+        while (true) {
+            try {
+                N = Integer.parseInt(scanner.nextLine());
+                if (N > 0) break; // Ensure the number is positive
+                else System.out.println("Please enter a positive number:");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number:");
+            }
+        }
+
+        // Fetch the top N populated capital cities in the specified region
+        List<city> topCapitalCitiesByRegion = cityObj.getTopPopulatedCapitalCitiesByRegion(a.con, region, N);
+
+        // Display
+        if (topCapitalCitiesByRegion.isEmpty()) {
+            System.out.println("No data found for the specified region: " + region);
+        } else {
+            System.out.println("\nTop " + N + " populated capital cities in region: \n" + region);
+            for (city c : topCapitalCitiesByRegion) {
+                System.out.println(c.name + " - Population: " + c.population);
+            }
+        }
+
+
+
+        region = "Southern and Central Asia";
+
+        List<city> citiesByRegion = cityObj.getCitiesByRegion(a.con, region);
+
+        // Top N populated countries in region where user choses N
+        if (citiesByRegion.isEmpty()) {
+            System.out.println("No data found for the specified region: " + region);
+        } else {
+            System.out.println("\nAll cities in the region: " + region + ", organized by population:\n");
+            for (city c : citiesByRegion) {
+                System.out.println(c.name + " - Population: " + c.population);
+            }
+        }
+
+
+
+    // Fetch the number of people who can speak Arabic
+    List<country> arabicSpeakingPopulation = countryObj.getArabicSpeakingPopulation(a.con);
+
+    // Display the results
+        if (arabicSpeakingPopulation.isEmpty()) {
+        System.out.println("No data found for Arabic-speaking population.");
+        } else {
+            System.out.println("\nArabic-speaking population organized by greatest number to smallest:\n");
+            for (country co : arabicSpeakingPopulation) {
+                 System.out.println("Language: " + co.localName +
+                    ", Total Speakers: " + co.population +
+                    ", Percentage of World Population: " + co.gnp + "%");
+        }
+    }
+
+
+
+// Specify the continent and prompt the user for the value of N
+
+        continent = "Asia";
+
+        System.out.println("Enter the number of top populated countries to fetch in " + continent);
+
+        while (true) {
+            try {
+                N = Integer.parseInt(scanner.nextLine());
+                if (N > 0) break;
+                else System.out.println("Please enter a positive number:");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number:");
+            }
+        }
+
+
+// Fetch the top N populated countries in the specified continent
+        List<country> topCountries = countryObj.getTopPopulatedCountriesByContinent(a.con, continent, N);
+
+// Display
+        if (topCountries.isEmpty()) {
+            System.out.println("No data found for the specified continent: " + continent);
+        } else {
+            System.out.println("Top " + N + " populated countries in continent: " + continent);
+            for (country co : topCountries) {
+                System.out.println("Country: " + co.name);
+            }
+        }
 
 
         // Disconnect from database
