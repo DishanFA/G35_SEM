@@ -254,11 +254,6 @@ public class country {
     }
 
 
-
-
-
-
-
     // Method to retrieve the top N populated countries in a continent
     public List<country> getTopPopulatedCountriesByContinent(Connection con, String continent, int n) {
         List<country> countries = new ArrayList<>();

@@ -100,6 +100,7 @@ public class app
         int N = 1;
 
 
+
         // Fetch all cities in the country code
         List<city> cities = cityObj.getCitiesByCountry(a.con, "AFG");
 
@@ -320,15 +321,6 @@ public class app
         }
 
 
-
-
-        ///////// started from here
-
-
-
-
-
-
         String region = "Caribbean";
 
         System.out.println("Enter the number of top populated capital cities to fetch:");
@@ -373,9 +365,6 @@ public class app
 
 
 
-
-
-        //
     // Fetch the number of people who can speak Arabic
     List<country> arabicSpeakingPopulation = countryObj.getArabicSpeakingPopulation(a.con);
 
@@ -390,8 +379,6 @@ public class app
                     ", Percentage of World Population: " + co.gnp + "%");
         }
     }
-
-
 
 
 
@@ -411,10 +398,11 @@ public class app
             }
         }
 
+
 // Fetch the top N populated countries in the specified continent
         List<country> topCountries = countryObj.getTopPopulatedCountriesByContinent(a.con, continent, N);
 
-// Display the results
+// Display
         if (topCountries.isEmpty()) {
             System.out.println("No data found for the specified continent: " + continent);
         } else {

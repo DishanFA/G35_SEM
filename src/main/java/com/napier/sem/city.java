@@ -301,18 +301,4 @@ public class city {
         return cities;
     }
 
-
-
-
-///////// start here
-
-
-
-
-
-
-
-
-
-
 }
