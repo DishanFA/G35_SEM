@@ -43,10 +43,13 @@ public class app
                 // Wait a bit for db to start
                 Thread.sleep(3000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:33060/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
+
+            // jdbc:mysql://db:3306/world?useSSL=false
+
             catch (SQLException sqle)
             {
                 System.out.println("Failed to connect to database attempt " + Integer.toString(i));
@@ -104,6 +107,8 @@ public class app
         for (city c : cities) {
             System.out.println(c.name + " - Population: " + c.population);
         }
+
+
         // Fetch all cities in the district
         List<city> citiesByDistrict = cityObj.getCitiesByDistrict(a.con, "Kabol");
 
@@ -293,6 +298,64 @@ public class app
         } else {
             System.out.println("Country with code " + countryCode + " not found.");
         }
+
+
+
+        // select region to search here
+        String regionName = "Southern Europe";
+
+        // Fetch population statistics for the region
+        List<country> populationStats = countryObj.getPopulationStatsByRegion(a.con, regionName);
+
+        if (populationStats.isEmpty()) {
+            System.out.println("No data found for the specified region: " + regionName);
+        } else {
+            System.out.println("Population statistics for region: " + regionName);
+            for (country co : populationStats) {
+                System.out.println("Region: " + co.region
+                        + ", Total Population: " + co.population
+                        + ", City Population: " + (long) co.surfaceArea
+                        + ", Non-City Population: " + co.gnp);
+            }
+        }
+
+
+
+
+        ///////// started from here
+
+
+
+
+
+
+        // change for what region
+        String region = "Caribbean";
+
+        System.out.println("Enter the number of top populated capital cities to fetch:");
+        while (true) {
+            try {
+                N = Integer.parseInt(scanner.nextLine());
+                if (N > 0) break; // Ensure the number is positive
+                else System.out.println("Please enter a positive number:");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number:");
+            }
+        }
+
+        // Fetch the top N populated capital cities in the specified region
+        List<city> topCapitalCitiesByRegion = cityObj.getTopPopulatedCapitalCitiesByRegion(a.con, region, N);
+
+        // Display
+        if (topCapitalCitiesByRegion.isEmpty()) {
+            System.out.println("No data found for the specified region: " + region);
+        } else {
+            System.out.println("Top " + N + " populated capital cities in region: " + region);
+            for (city c : topCapitalCitiesByRegion) {
+                System.out.println(c.name + " - Population: " + c.population);
+            }
+        }
+
 
 
         // Disconnect from database

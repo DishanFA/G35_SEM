@@ -190,7 +190,7 @@ public class city {
 
 
 
-
+    // method to get top populated capital cities by continent
     public List<city> getTopPopulatedCapitalCitiesByContinent(Connection con, String continent, int n) {
         List<city> cities = new ArrayList<>();
         String query = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
@@ -221,7 +221,7 @@ public class city {
         return cities;
     }
 
-
+    // get population by district
     public int getPopulationByDistrict(Connection con, String district) {
         int totalPopulation = 0;
         String query = "SELECT SUM(Population) AS total_population " +
@@ -240,4 +240,46 @@ public class city {
 
         return totalPopulation;
     }
+
+
+    // get top populated capital cities by region
+    public List<city> getTopPopulatedCapitalCitiesByRegion(Connection con, String region, int n) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT ci.ID, ci.Name, ci.CountryCode, ci.District, ci.Population " +
+                "FROM city ci " +
+                "JOIN country co ON ci.ID = co.Capital " +
+                "WHERE co.Region = ? " +
+                "ORDER BY ci.Population DESC " +
+                "LIMIT ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, region);
+            stmt.setInt(2, n);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c); // Add the city to the list
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+        return cities;
+    }
+
+
+    ///////// started here
+
+
+
+
+
+
+
+
 }
