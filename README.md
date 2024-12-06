@@ -25,11 +25,11 @@ Out of 32 total requirements, 27 have been implemented, which is **81.3%** compl
 | 10  | All the cities in a country organised by largest population to smallest.               | Yes  | screenshots group Project/issue10.png |
 | 11  | All the cities in a district organised by largest population to smallest.              | Yes  | screenshots group Project/issue11.png |
 | 12  | The top N populated cities in the world where N is provided by the user.               | Yes  | screenshots group Project/issue12.png |
-| 13  | The top N populated cities in a continent where N is provided by the user.             | Yes  |                  |
+| 13  | The top N populated cities in a continent where N is provided by the user.             | Yes  | screenshots group Project/issue13.png |
 | 14  | The top N populated cities in a region where N is provided by the user.                | Yes  | screenshots group Project/issue14.png |
 | 15  | The top N populated cities in a country where N is provided by the user.               | Yes  | screenshots group Project/issue15.png |
 | 16  | The top N populated cities in a district where N is provided by the user.              | Yes  | screenshots group Project/issue16.png |
-| 17  | All the capital cities in the world organised by largest population to smallest.       | Yes  | screenshots group Project/issue13.png |
+| 17  | All the capital cities in the world organised by largest population to smallest.       | Yes  | screenshots group Project/issue17.png |
 | 18  | All the capital cities in a continent organised by largest population to smallest.     | Yes  | screenshots group Project/issue18.png |
 | 19  | All the capital cities in a region organised by largest to smallest.                   | No   |                  |
 | 20  | The top N populated capital cities in the world where N is provided by the user.       | Yes  | screenshots group Project/issue20.png |
