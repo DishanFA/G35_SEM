@@ -412,6 +412,84 @@ public class app
             }
         }
 
+        // Prompt the user for input
+        scanner = new Scanner(System.in);
+
+        System.out.println("Enter the continent name:");
+        continent = scanner.nextLine();
+
+        System.out.println("Enter the number of top populated cities to retrieve (N):");
+        int n = scanner.nextInt();
+
+        // Fetch and display top N cities in the specified continent
+
+        List<city> topCitiesIn = cityObj.getTopNCitiesInContinent(a.con, continent, n);
+
+        System.out.println("Top " + n + " populated cities in " + continent + ":");
+        for (city ci : topCitiesIn) {
+            System.out.println(ci.name + " - Population: " + ci.population +
+                    ", District: " + ci.district +
+                    ", Country Code: " + ci.countryCode);
+        }
+
+        // Prompt the user for input
+        scanner = new Scanner(System.in);
+
+        System.out.println("Enter the region name:");
+        region = scanner.nextLine();
+
+        System.out.println("Enter the number of top populated cities to retrieve (N):");
+        n = scanner.nextInt();
+
+        // Fetch and display top N cities in the specified region
+        cityObj = new city();
+        List<city> topCities1 = cityObj.getTopNCitiesInRegion(a.con, region, n);
+
+        System.out.println("Top " + n + " populated cities in " + region + ":");
+        for (city ci : topCities1) {
+            System.out.println(ci.name + " - Population: " + ci.population +
+                    ", District: " + ci.district +
+                    ", Country Code: " + ci.countryCode);
+        }
+
+        // Prompt the user for input
+        scanner = new Scanner(System.in);
+
+        System.out.println("Enter the country name:");
+        String countryName = scanner.nextLine();
+
+        System.out.println("Enter the number of top populated cities to retrieve (N):");
+        n = scanner.nextInt();
+
+        // Fetch and display top N cities in the specified country
+        cityObj = new city();
+        List<city> topCities2 = cityObj.getTopNCitiesInCountry(a.con, countryName, n);
+
+        System.out.println("Top " + n + " populated cities in " + countryName + ":");
+        for (city ci : topCities2) {
+            System.out.println(ci.name + " - Population: " + ci.population +
+                    ", District: " + ci.district +
+                    ", Country Code: " + ci.countryCode);
+        }
+
+        scanner = new Scanner(System.in);
+
+        System.out.println("Enter the district name:");
+        districtName = scanner.nextLine();
+
+        System.out.println("Enter the number of top populated cities to retrieve (N):");
+        n = scanner.nextInt();
+
+        // Fetch and display top N cities in the specified district
+        cityObj = new city();
+        List<city> topCities3 = cityObj.getTopNCitiesInDistrict(a.con, districtName, n);
+
+        System.out.println("Top " + n + " populated cities in " + districtName + ":");
+        for (city ci : topCities3) {
+            System.out.println(ci.name + " - Population: " + ci.population +
+                    ", District: " + ci.district +
+                    ", Country Code: " + ci.countryCode);
+        }
 
         // Disconnect from database
         a.disconnect();
