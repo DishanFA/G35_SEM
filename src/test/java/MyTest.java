@@ -7,6 +7,6 @@ class MyTest
     @Test
     void unitTest()
     {
-        assertEquals(5, 5);
+        /* assertEquals(5, 5); */
     }
 }
