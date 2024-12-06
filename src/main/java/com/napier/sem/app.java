@@ -97,7 +97,7 @@ public class app
         country countryObj = new country();
 
         //make N have a value of 1 to start
-        int N = 1;
+      /*  int N = 1;
 
 
 
@@ -135,7 +135,7 @@ public class app
 
 
         // Fetch the top N populated cities in the world
-        Scanner scanner = new Scanner(System.in);
+      /*  Scanner scanner = new Scanner(System.in);
         System.out.println("\nEnter the number of top city's you want to see:");
         // Example: Get the top N
         while (true) {
@@ -236,8 +236,6 @@ public class app
                 System.out.println("Invalid input. Please enter a valid number:");
             }
         }
-
-
 
         List<city> topCapitalCities = cityObj.getTopPopulatedCapitalCities(a.con, N);
 
@@ -499,7 +497,7 @@ public class app
         for (city ci : capitalCities1) {
             System.out.println(ci.name + " (Country: " + ci.countryCode + ") - Population: " + ci.population);
         }
-
+*/
         // Disconnect from database
         a.disconnect();
     }
