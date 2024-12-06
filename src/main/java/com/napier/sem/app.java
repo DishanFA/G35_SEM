@@ -92,13 +92,9 @@ public class app
 
         // Create an instance of city to access its methods
         city cityObj = new city();
-
+        int n = 10;
         // Create an instance of country to access its methods
         country countryObj = new country();
-
-        //make N have a value of 1 to start
-        int N = 1;
-
 
 
         // Fetch all cities in the country code
@@ -140,18 +136,18 @@ public class app
         // Example: Get the top N
         while (true) {
             try {
-                N = Integer.parseInt(scanner.nextLine());
-                if (N > 0) break; // Ensure the number is positive
+                n = Integer.parseInt(scanner.nextLine());
+                if (n > 0) break; // Ensure the number is positive
                 else System.out.println("Please enter a positive number:");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid number:");
             }
         }
 
-        List<city> topCities = cityObj.getTopPopulatedCities(a.con, N);
+        List<city> topCities = cityObj.getTopPopulatedCities(a.con, n);
 
         // Display the top N populated cities
-        System.out.println("Top " + N + " populated cities in the world:");
+        System.out.println("Top " + n + " populated cities in the world:");
         for (city c : topCities) {
             System.out.println(c.name + " - Population: " + c.population);
         }
@@ -229,8 +225,8 @@ public class app
         System.out.println("\nEnter the number of top populated capital cities you want to see:");
         while (true) {
             try {
-                N = Integer.parseInt(scanner.nextLine());
-                if (N > 0) break;
+                n = Integer.parseInt(scanner.nextLine());
+                if (n > 0) break;
                 else System.out.println("Please enter a positive number:");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid number:");
@@ -239,10 +235,10 @@ public class app
 
 
 
-        List<city> topCapitalCities = cityObj.getTopPopulatedCapitalCities(a.con, N);
+        List<city> topCapitalCities = cityObj.getTopPopulatedCapitalCities(a.con, n);
 
         // Display the top N populated capital cities
-        System.out.println("\nTop " + N + " populated capital cities in the world:");
+        System.out.println("\nTop " + n + " populated capital cities in the world:");
         for (city c : topCapitalCities) {
             System.out.println(c.name + " - Population: " + c.population);
         }
@@ -253,8 +249,8 @@ public class app
         System.out.println("\nEnter the number of top populated capital cities you want to see within the continent:");
         while (true) {
             try {
-                N = Integer.parseInt(scanner.nextLine());
-                if (N > 0) break;
+                n = Integer.parseInt(scanner.nextLine());
+                if (n > 0) break;
                 else System.out.println("Please enter a positive number:");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid number:");
@@ -266,8 +262,8 @@ public class app
         continent = scanner.nextLine();
 
         // Fetch the top N populated capital cities by continent
-        topCapitalCities = cityObj.getTopPopulatedCapitalCitiesByContinent(a.con, continent, N);
-        System.out.println("\nThe top " + N + " populated capital cities in " + continent + ":");
+        topCapitalCities = cityObj.getTopPopulatedCapitalCitiesByContinent(a.con, continent, n);
+        System.out.println("\nThe top " + n + " populated capital cities in " + continent + ":");
         for (city c : topCapitalCities) {
             System.out.println(c.name + " - Population: " + c.population);
         }
@@ -326,8 +322,8 @@ public class app
         System.out.println("Enter the number of top populated capital cities to fetch:");
         while (true) {
             try {
-                N = Integer.parseInt(scanner.nextLine());
-                if (N > 0) break; // Ensure the number is positive
+                n = Integer.parseInt(scanner.nextLine());
+                if (n > 0) break; // Ensure the number is positive
                 else System.out.println("Please enter a positive number:");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid number:");
@@ -335,13 +331,13 @@ public class app
         }
 
         // Fetch the top N populated capital cities in the specified region
-        List<city> topCapitalCitiesByRegion = cityObj.getTopPopulatedCapitalCitiesByRegion(a.con, region, N);
+        List<city> topCapitalCitiesByRegion = cityObj.getTopPopulatedCapitalCitiesByRegion(a.con, region, n);
 
         // Display
         if (topCapitalCitiesByRegion.isEmpty()) {
             System.out.println("No data found for the specified region: " + region);
         } else {
-            System.out.println("\nTop " + N + " populated capital cities in region: \n" + region);
+            System.out.println("\nTop " + n + " populated capital cities in region: \n" + region);
             for (city c : topCapitalCitiesByRegion) {
                 System.out.println(c.name + " - Population: " + c.population);
             }
@@ -390,8 +386,8 @@ public class app
 
         while (true) {
             try {
-                N = Integer.parseInt(scanner.nextLine());
-                if (N > 0) break;
+                n = Integer.parseInt(scanner.nextLine());
+                if (n > 0) break;
                 else System.out.println("Please enter a positive number:");
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid number:");
@@ -400,13 +396,13 @@ public class app
 
 
 // Fetch the top N populated countries in the specified continent
-        List<country> topCountries = countryObj.getTopPopulatedCountriesByContinent(a.con, continent, N);
+        List<country> topCountries = countryObj.getTopPopulatedCountriesByContinent(a.con, continent, n);
 
 // Display
         if (topCountries.isEmpty()) {
             System.out.println("No data found for the specified continent: " + continent);
         } else {
-            System.out.println("Top " + N + " populated countries in continent: " + continent);
+            System.out.println("Top " + n + " populated countries in continent: " + continent);
             for (country co : topCountries) {
                 System.out.println("Country: " + co.name);
             }
@@ -419,7 +415,7 @@ public class app
         continent = scanner.nextLine();
 
         System.out.println("Enter the number of top populated cities to retrieve (N):");
-        int n = scanner.nextInt();
+        n = scanner.nextInt();
 
         // Fetch and display top N cities in the specified continent
 
