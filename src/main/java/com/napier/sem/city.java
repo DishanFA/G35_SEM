@@ -190,6 +190,28 @@ public class city {
         return cities;
     }
 
+    public List<city> getAllCapitalCitiesByPopulation(Connection con) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT city.Name AS CityName, city.Population, country.Name AS CountryName " + "FROM city JOIN country ON city.ID = country.Capital ORDER BY city.Population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+
+            // Process the result set
+            while (rs.next()) {
+                city ci = new city();
+                ci.name = rs.getString("CityName");
+                ci.population = rs.getInt("Population");
+                ci.countryCode = rs.getString("CountryName"); // Store country name in `countryCode`
+                cities.add(ci);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
     public List<city> issue8(Connection con) {
         List<city> cities = new ArrayList<>();
         String query = "SELECT *" + "FROM city ORDER BY Population DESC";

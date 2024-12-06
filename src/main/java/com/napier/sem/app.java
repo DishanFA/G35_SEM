@@ -491,6 +491,15 @@ public class app
                     ", Country Code: " + ci.countryCode);
         }
 
+        // Fetch and display all capital cities by population
+        cityObj = new city();
+        List<city> capitalCities1 = cityObj.getAllCapitalCitiesByPopulation(a.con);
+
+        System.out.println("All the capital cities in the world, organized by largest population to smallest:");
+        for (city ci : capitalCities1) {
+            System.out.println(ci.name + " (Country: " + ci.countryCode + ") - Population: " + ci.population);
+        }
+
         // Disconnect from database
         a.disconnect();
     }
