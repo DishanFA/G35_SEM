@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Scanner;
 
-  /* public class AppIntegrationTest
+   public class AppIntegrationTest
 {
     static com.napier.sem.app app;
 
@@ -67,4 +67,3 @@ import java.util.Scanner;
         }
     }
 }
- */
