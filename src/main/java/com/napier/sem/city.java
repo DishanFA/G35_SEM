@@ -217,7 +217,6 @@ public class city {
         String query = "SELECT *" + "FROM city ORDER BY Population DESC";
 
         try (PreparedStatement stmt = con.prepareStatement(query)) {
-            ;
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

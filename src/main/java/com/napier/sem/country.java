@@ -30,7 +30,6 @@ public class country {
         String query = "SELECT *" + "FROM country ORDER BY Population DESC";
 
         try (PreparedStatement stmt = con.prepareStatement(query)) {
-            ;
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

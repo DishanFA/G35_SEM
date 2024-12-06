@@ -52,7 +52,7 @@ public class app
 
             catch (SQLException sqle)
             {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
+                System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(sqle.getMessage());
             }
             catch (InterruptedException ie)
@@ -91,7 +91,7 @@ public class app
         a.connect();
 
         // Create an instance of city to access its methods
-     /*   city cityObj = new city();
+       city cityObj = new city();
         int n = 10;
         // Create an instance of country to access its methods
         country countryObj = new country();
@@ -494,7 +494,7 @@ public class app
         System.out.println("All the capital cities in the world, organized by largest population to smallest:");
         for (city ci : capitalCities1) {
             System.out.println(ci.name + " (Country: " + ci.countryCode + ") - Population: " + ci.population);
-        } */
+        }
 
         // Disconnect from database
         a.disconnect();
