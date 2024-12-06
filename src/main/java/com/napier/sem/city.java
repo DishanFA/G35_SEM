@@ -81,13 +81,225 @@ public class city {
         }
         return cities;
     }
-    public List<city> getTopCitiesByPopulation(Connection con, String countryCode, int n) {
+
+    public List<city> getTopNCitiesInContinent(Connection con, String continent, int n) {
         List<city> cities = new ArrayList<>();
-        // Dynamically construct the query for the LIMIT parameter
-        String query = "SELECT * FROM city WHERE CountryCode = ? ORDER BY Population DESC LIMIT " + n;
+        String query = "SELECT city.Name, city.Population, city.District, city.CountryCode " + "FROM city JOIN country ON city.CountryCode = country.Code WHERE country.Continent = ? ORDER BY city.Population DESC LIMIT ?";
 
         try (PreparedStatement stmt = con.prepareStatement(query)) {
-            stmt.setString(1, countryCode); // Set the country code parameter
+            // Set the continent and limit parameters
+            stmt.setString(1, continent);
+            stmt.setInt(2, n);
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Process the result set
+            while (rs.next()) {
+                city ci = new city();
+                ci.name = rs.getString("Name");
+                ci.population = rs.getInt("Population");
+                ci.district = rs.getString("District");
+                ci.countryCode = rs.getString("CountryCode");
+                cities.add(ci);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+    public List<city> getTopNCitiesInRegion(Connection con, String region, int n) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT city.Name, city.Population, city.District, city.CountryCode " + "FROM city JOIN country ON city.CountryCode = country.Code WHERE country.Region = ? ORDER BY city.Population DESC LIMIT ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            // Set the region and limit parameters
+            stmt.setString(1, region);
+            stmt.setInt(2, n);
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Process the result set
+            while (rs.next()) {
+                city ci = new city();
+                ci.name = rs.getString("Name");
+                ci.population = rs.getInt("Population");
+                ci.district = rs.getString("District");
+                ci.countryCode = rs.getString("CountryCode");
+                cities.add(ci);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+    public List<city> getTopNCitiesInCountry(Connection con, String countryName, int n) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT city.Name, city.Population, city.District, city.CountryCode " + "FROM city JOIN country ON city.CountryCode = country.Code WHERE country.Name = ? ORDER BY city.Population DESC LIMIT ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            // Set the country name and limit parameters
+            stmt.setString(1, countryName);
+            stmt.setInt(2, n);
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Process the result set
+            while (rs.next()) {
+                city ci = new city();
+                ci.name = rs.getString("Name");
+                ci.population = rs.getInt("Population");
+                ci.district = rs.getString("District");
+                ci.countryCode = rs.getString("CountryCode");
+                cities.add(ci);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+    public List<city> getTopNCitiesInDistrict(Connection con, String districtName, int n) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT Name, Population, District, CountryCode " + "FROM city WHERE District = ? ORDER BY Population DESC LIMIT ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            // Set the district name and limit parameters
+            stmt.setString(1, districtName);
+            stmt.setInt(2, n);
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Process the result set
+            while (rs.next()) {
+                city ci = new city();
+                ci.name = rs.getString("Name");
+                ci.population = rs.getInt("Population");
+                ci.district = rs.getString("District");
+                ci.countryCode = rs.getString("CountryCode");
+                cities.add(ci);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+    public List<city> getAllCapitalCitiesByPopulation(Connection con) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT city.Name AS CityName, city.Population, country.Name AS CountryName " + "FROM city JOIN country ON city.ID = country.Capital ORDER BY city.Population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+
+            // Process the result set
+            while (rs.next()) {
+                city ci = new city();
+                ci.name = rs.getString("CityName");
+                ci.population = rs.getInt("Population");
+                ci.countryCode = rs.getString("CountryName"); // Store country name in `countryCode`
+                cities.add(ci);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+    public List<city> issue8(Connection con) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT *" + "FROM city ORDER BY Population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+        return cities;
+    }
+
+    public List<city> issue9(Connection con, String Continent) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT *" + "FROM city JOIN country ON city.countryCode = country.Code WHERE Continent LIKE ? ORDER BY city.Population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, Continent);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+        return cities;
+    }
+
+    // method to retrieve capital cities by continent organised by population largest to smallest
+    public List<city> getCapitalCitiesByContinent(Connection con, String continent) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = ? AND country.Capital IS NOT NULL " +
+                "ORDER BY city.Population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, continent);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);  // Add the city to the list
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return cities;
+    }
+
+
+    // Method to retrieve the top N populated capital cities in the world
+    public List<city> getTopPopulatedCapitalCities(Connection con, int n) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.ID = country.Capital " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setInt(1, n);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -102,7 +314,120 @@ public class city {
         } catch (SQLException e) {
             System.out.println("Error executing query: " + e.getMessage());
         }
+        return cities;
+    }
+
+
+
+    // method to get top populated capital cities by continent
+    public List<city> getTopPopulatedCapitalCitiesByContinent(Connection con, String continent, int n) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                "FROM city " +
+                "JOIN country ON city.CountryCode = country.Code " +
+                "WHERE country.Continent = ? AND country.Capital IS NOT NULL " +
+                "ORDER BY city.Population DESC " +
+                "LIMIT ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, continent);
+            stmt.setInt(2, n);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);  // Add the city to the list
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
 
         return cities;
     }
+
+    // get population by district
+    public int getPopulationByDistrict(Connection con, String district) {
+        int totalPopulation = 0;
+        String query = "SELECT SUM(Population) AS total_population " +
+                "FROM city WHERE district = ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, district);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                totalPopulation = rs.getInt("total_population");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return totalPopulation;
+    }
+
+
+    // get top populated capital cities by region
+    public List<city> getTopPopulatedCapitalCitiesByRegion(Connection con, String region, int n) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT ci.ID, ci.Name, ci.CountryCode, ci.District, ci.Population " +
+                "FROM city ci " +
+                "JOIN country co ON ci.ID = co.Capital " +
+                "WHERE co.Region = ? " +
+                "ORDER BY ci.Population DESC " +
+                "LIMIT ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, region);
+            stmt.setInt(2, n);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c); // Add the city to the list
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+        return cities;
+    }
+
+
+    // Method to retrieve all cities in a region ordered by population
+    public List<city> getCitiesByRegion(Connection con, String region) {
+        List<city> cities = new ArrayList<>();
+        String query = "SELECT ci.ID, ci.Name, ci.CountryCode, ci.District, ci.Population " +
+                "FROM city ci " +
+                "JOIN country co ON ci.CountryCode = co.Code " +
+                "WHERE co.Region = ? " +
+                "ORDER BY ci.Population DESC";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, region);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                city c = new city();
+                c.id = rs.getInt("ID");
+                c.name = rs.getString("Name");
+                c.countryCode = rs.getString("CountryCode");
+                c.district = rs.getString("District");
+                c.population = rs.getInt("Population");
+                cities.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+        return cities;
+    }
+
 }
